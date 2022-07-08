@@ -8,4 +8,4 @@
 
 注：数据创建时可以把‘客户名称’换成‘uid’，对应随机从‘随机公司’改成‘随机数字’，重复项会大大减少
 # 数据处理及可视化
-- 代码如下
+- 代码如下[main_RFM](https://github.com/xingwenzan/random_data_RFM/blob/main/main_RFM.py)
