@@ -1,12 +1,13 @@
 from faker import Faker
 import csv
+import time
 
 num=input('请输入需要创建多少条数据:')
+start=time.time()
 fake = Faker(locale='zh_CN') # 设置造的数据是中文的
-title=['客户名称','日期','消费金额','消费数量']
+title=['客户名称','消费日期','消费金额']
 data=[[fake.company(),    # 公司名
         fake.date(),       # 日期
-        fake.pyint(),      # 数
         fake.random_int()] for x in range(int(num))] # 随机数据生成
 #print(data)
 #print(data[1][0])
@@ -19,7 +20,8 @@ try:                                                            # 解码器encod
     writer.writerows(data)  # 写入样本数据
 except:
    pass
-print('完成')
+end=time.time()
+print('完成,总用时为:',end-start)
 
 # 文件读取
 '''
