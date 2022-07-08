@@ -7,3 +7,5 @@
 - 创建数据量较小时，可使用 [Create_Data2xls.py](https://github.com/xingwenzan/random_data_RFM/blob/main/Create_Data2xls.py)
 
 注：数据创建时可以把‘客户名称’换成‘uid’，对应随机从‘随机公司’改成‘随机数字’，重复项会大大减少
+# 数据处理及可视化
+- 代码如下
