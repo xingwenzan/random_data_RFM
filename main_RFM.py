@@ -2,6 +2,8 @@ import pandas as pd
 import time
 import datetime
 import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
 import plotly.express as px
 
 start=time.time()                    # 记录开始时间
@@ -50,13 +52,36 @@ data['RFM']=data['RFM'].replace(['111','101','011','001','110','100','010','000'
 #print(data)
 
 #数据保存; 命名后默认保存当前路径，取消index
-data.to_excel('RFM.xls',index=False)
+#data.to_excel('RFM.xls',index=False)
 
 # 可视化
-#y=data['RFM'].value_counts()
-#x=data['RFM'].unique()
-#print(dcount.plot(kind='bar'))
-#dcount.plot(kind='bar')
+
+sns.set(font='SimHei',style='darkgrid')         # 默认主题
+user_RFM = data.groupby(data['RFM']).size()     # 计算各组元素个数
+plt.figure(figsize = (10,4),dpi=80)             # 画板，有这个才能画
+user_RFM.sort_values(ascending=True,inplace=True)         # 排序，正序 https://zhuanlan.zhihu.com/p/35013079
+plt.title(label='随机数据RFM',                    # 设置标题
+    fontsize=22,
+    color='white',
+    backgroundcolor='#334f65',
+    pad=10)                   # 距离图像高度
+s = plt.barh(                 # 创建条形图（横柱状图）
+    user_RFM.index,
+    user_RFM.values,
+    height=0.8,
+    color=plt.cm.coolwarm_r(np.linspace(0,1,len(user_RFM))))
+for rect in s:
+    width = rect.get_width()  # 获取图像宽度
+    plt.text(                 # 设置图像文本
+        width+5,                                # 文本位置(x,y)的x（横向位置，而非x轴）
+        rect.get_y() + rect.get_height()/3,     # 文本位置的y（纵向位置）
+        str(width),                             # 文本内容
+        ha= 'center')                           # 不知道有啥用，去掉结果不变
+plt.grid(axis='y')                              # 显示y轴方向的网格 https://www.runoob.com/matplotlib/matplotlib-grid.html
+plt.show()
+
+
+'''
 fig = px.bar(data['RFM'],
              x=data['RFM'].unique(),
              y=data['RFM'].value_counts(),
@@ -66,6 +91,7 @@ fig = px.bar(data['RFM'],
 fig.show()
 end=time.time()
 print('总用时为:',end-start)
+'''
 
 '''
 # (此方法不好使，目前不知道为什么）
@@ -81,6 +107,7 @@ fig.show()
 
 '''
 # （好使，但不好看，莫名其妙有一些乱码）
+plt.figure(figsize = (10,4),dpi=80)
 dcount=data.groupby('RFM')['客户名称'].nunique().to_frame('用户数')#.reset_index
 x=data['RFM'].unique()
 y=dcount['用户数']
