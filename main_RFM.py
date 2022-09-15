@@ -7,7 +7,7 @@ import numpy as np
 import plotly.express as px
 
 start=time.time()                    # 记录开始时间
-data=pd.read_csv("C:.\RFM随机数据.csv")           # 读入数据
+data=pd.read_csv("C:.\RFM随机数据.csv")           # 读入数据，注：数据根据本文档所给方法随机生成
 #print(data)
 
 data['消费日期']=pd.to_datetime(data['消费日期'])
